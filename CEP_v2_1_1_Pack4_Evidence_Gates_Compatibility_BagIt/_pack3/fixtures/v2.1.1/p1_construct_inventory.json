@@ -1,0 +1,24 @@
+{
+  "schema_version": "v2.1.1",
+  "run_id": "123e4567-e89b-72d3-a456-426614174000",
+  "source_id": "SRC01",
+  "created_at": "2026-03-05T12:51:06.071163+00:00",
+  "constructs": [
+    {
+      "construct_id": "CNSTR001",
+      "term": "CEP",
+      "term_hash_sha256": "d686368b507171acf5b8e20f74230dca50d74f462d5eb7c58de01a094094b055",
+      "type": "System",
+      "first_seen": "p.1",
+      "footprint_pages": [
+        "p.1",
+        "p.2"
+      ],
+      "aliases": [
+        "Codex Extraction Protocol"
+      ],
+      "register": "Operator",
+      "notes": "Fixture construct"
+    }
+  ]
+}

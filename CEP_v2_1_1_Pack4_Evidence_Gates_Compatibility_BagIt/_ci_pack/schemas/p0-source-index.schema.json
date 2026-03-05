@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cep:schema:p0-source-index:v2.1.1",
+  "title": "CEP Pass 0 — Source Index (v2.1.1)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "sources",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v2.1.1"
+    },
+    "run_id": {
+      "$ref": "defs.schema.json#/$defs/uuidv7"
+    },
+    "created_at": {
+      "$ref": "defs.schema.json#/$defs/iso_datetime"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "filename",
+          "sha256",
+          "bytes",
+          "page_count",
+          "vault_uri",
+          "drive_uri"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_-]{3,32}$"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "defs.schema.json#/$defs/sha256"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "page_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "vault_uri": {
+            "type": "string",
+            "minLength": 8,
+            "description": "Tier 1 immutable URI"
+          },
+          "drive_uri": {
+            "type": "string",
+            "minLength": 8,
+            "description": "Tier 2 working URI"
+          },
+          "ingested_at": {
+            "$ref": "defs.schema.json#/$defs/iso_datetime"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

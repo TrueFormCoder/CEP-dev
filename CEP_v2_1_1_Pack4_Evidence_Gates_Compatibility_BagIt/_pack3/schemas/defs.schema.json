@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cep:schema:defs:v2.1.1",
+  "title": "CEP Shared Definitions (v2.1.1)",
+  "type": "object",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "uuidv7": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "UUIDv7 (best-effort regex)"
+    },
+    "iso_datetime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "register": {
+      "type": "string",
+      "enum": [
+        "Canon",
+        "Operator",
+        "Combustion",
+        "Unclear"
+      ]
+    },
+    "evidence_tag": {
+      "type": "string",
+      "pattern": "\\[EVIDENCE:\\s*p\\.\\d+(?:-\\d+)?(?:,\\s*p\\.\\d+(?:-\\d+)?)*\\]"
+    },
+    "page_ref": {
+      "type": "string",
+      "pattern": "^p\\.\\d+(?:-\\d+)?$",
+      "examples": [
+        "p.12",
+        "p.12-14"
+      ]
+    },
+    "not_defined": {
+      "type": "string",
+      "const": "Not defined in source"
+    },
+    "evidence_or_not_defined": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/evidence_tag"
+        },
+        {
+          "$ref": "#/$defs/not_defined"
+        }
+      ]
+    },
+    "term_surface": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Exact surface form. Preserve case/punctuation."
+    },
+    "term_type": {
+      "type": "string",
+      "enum": [
+        "Construct",
+        "Term",
+        "Concept",
+        "Protocol",
+        "Ritual",
+        "Artifact",
+        "Tool",
+        "System",
+        "Person",
+        "Org",
+        "Other"
+      ]
+    }
+  }
+}

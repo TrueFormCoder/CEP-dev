@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cep:schema:p1q-qa-instrumentation:v2.1.1",
+  "title": "CEP Pass 1Q — QA Instrumentation (Non-Canonical) (v2.1.1)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "source_id",
+    "qa_items",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v2.1.1"
+    },
+    "run_id": {
+      "$ref": "defs.schema.json#/$defs/uuidv7"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_-]{3,32}$"
+    },
+    "created_at": {
+      "$ref": "defs.schema.json#/$defs/iso_datetime"
+    },
+    "qa_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "construct_id",
+          "noise_flag",
+          "priority_score",
+          "priority_band"
+        ],
+        "properties": {
+          "construct_id": {
+            "type": "string",
+            "pattern": "^[A-Z0-9]{6,20}$"
+          },
+          "noise_flag": {
+            "type": "boolean"
+          },
+          "priority_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "priority_band": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "suggested_type": {
+            "$ref": "defs.schema.json#/$defs/term_type"
+          },
+          "suggested_register": {
+            "$ref": "defs.schema.json#/$defs/register"
+          },
+          "suggested_alias_cluster": {
+            "type": "array",
+            "items": {
+              "$ref": "defs.schema.json#/$defs/term_surface"
+            },
+            "default": []
+          },
+          "footprint_recalc_pages": {
+            "type": "array",
+            "items": {
+              "$ref": "defs.schema.json#/$defs/page_ref"
+            },
+            "default": []
+          },
+          "downstream_eligible": {
+            "type": "boolean"
+          },
+          "rationale": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cep:schema:x1-run-manifest:v2.1.1",
+  "title": "CEP X1 Run Manifest (v2.1.1)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "cep_version",
+    "created_at",
+    "sources",
+    "extractor",
+    "normalization",
+    "artifacts",
+    "models"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "x1-run-manifest@v2.1.1"
+    },
+    "run_id": {
+      "type": "string",
+      "description": "Run identifier (UUIDv7 recommended).",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "cep_version": {
+      "type": "string",
+      "const": "v2.1.1"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "thread_ref": {
+      "type": "string",
+      "description": "Optional external reference to the thread/run request."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "filename",
+          "sha256",
+          "bytes",
+          "vault_uri"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "mime_type": {
+            "type": "string",
+            "default": "application/pdf"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "vault_uri": {
+            "type": "string",
+            "description": "Tier 1 canonical location (R2/S3 URI)."
+          },
+          "drive_uri": {
+            "type": "string",
+            "description": "Tier 2 working location (Drive link/URI)."
+          }
+        }
+      }
+    },
+    "extractor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool",
+        "tool_version",
+        "parameters"
+      ],
+      "properties": {
+        "tool": {
+          "type": "string",
+          "description": "PDF extraction library/tool name."
+        },
+        "tool_version": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "Pinned params (e.g., sort mode, OCR flags)."
+        }
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "header_footer_threshold",
+        "unicode_policy"
+      ],
+      "properties": {
+        "header_footer_threshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.8
+        },
+        "unicode_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "matching_normalization_form",
+            "verbatim_policy"
+          ],
+          "properties": {
+            "matching_normalization_form": {
+              "type": "string",
+              "enum": [
+                "NFKC",
+                "NFC",
+                "NONE"
+              ]
+            },
+            "verbatim_policy": {
+              "type": "string",
+              "const": "RAW_ONLY"
+            }
+          }
+        }
+      }
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "role",
+          "provider",
+          "model_name",
+          "prompt_sha256"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "operator",
+              "reviewer",
+              "assistant"
+            ]
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "Anthropic",
+              "OpenAI",
+              "Other"
+            ]
+          },
+          "model_name": {
+            "type": "string"
+          },
+          "model_version": {
+            "type": "string"
+          },
+          "prompt_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "description": "URIs + hashes for key outputs (per pass).",
+      "additionalProperties": false,
+      "required": [
+        "p0",
+        "p1",
+        "p1q",
+        "p2"
+      ],
+      "properties": {
+        "p0": {
+          "$ref": "#/$defs/artifact_ref"
+        },
+        "p1": {
+          "$ref": "#/$defs/artifact_ref"
+        },
+        "p1q": {
+          "$ref": "#/$defs/artifact_ref"
+        },
+        "p2": {
+          "$ref": "#/$defs/artifact_ref"
+        },
+        "p3_plus": {
+          "$ref": "#/$defs/artifact_ref"
+        },
+        "bagit_bundle": {
+          "$ref": "#/$defs/artifact_ref"
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "g1": {
+          "$ref": "#/$defs/gate_result"
+        },
+        "g2": {
+          "$ref": "#/$defs/gate_result"
+        },
+        "g3": {
+          "$ref": "#/$defs/gate_result"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "artifact_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uri",
+        "sha256"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "gate_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "checked_at"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "WARN"
+          ]
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
