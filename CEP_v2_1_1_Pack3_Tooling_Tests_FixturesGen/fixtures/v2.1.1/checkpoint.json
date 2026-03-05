@@ -1,0 +1,23 @@
+{
+  "schema_version": "v2.1.1",
+  "run_id": "123e4567-e89b-72d3-a456-426614174000",
+  "last_completed_pass": "P2",
+  "session_id": "session_fixture_001",
+  "timestamp": "2026-03-05T12:51:06.071234+00:00",
+  "artifacts": [
+    {
+      "name": "p0",
+      "uri": "drive://...",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "pass": "P0",
+      "schema_id": "urn:cep:schema:p0-source-index:v2.1.1"
+    },
+    {
+      "name": "p1",
+      "uri": "drive://...",
+      "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "pass": "P1",
+      "schema_id": "urn:cep:schema:p1-construct-inventory:v2.1.1"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:cep:schema:checkpoint:v2.1.1",
+  "title": "CEP Checkpoint (v2.1.1)",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "last_completed_pass",
+    "session_id",
+    "timestamp",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v2.1.1"
+    },
+    "run_id": {
+      "$ref": "defs.schema.json#/$defs/uuidv7"
+    },
+    "last_completed_pass": {
+      "type": "string",
+      "enum": [
+        "P0α",
+        "P0",
+        "P1",
+        "P1Q",
+        "G1",
+        "P2",
+        "G3",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7",
+        "P8",
+        "P9",
+        "P10",
+        "P11",
+        "P12"
+      ]
+    },
+    "session_id": {
+      "type": "string",
+      "minLength": 6,
+      "maxLength": 128
+    },
+    "timestamp": {
+      "$ref": "defs.schema.json#/$defs/iso_datetime"
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "uri",
+          "sha256"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "defs.schema.json#/$defs/sha256"
+          },
+          "pass": {
+            "type": "string"
+          },
+          "schema_id": {
+            "type": "string"
+          },
+          "template_version": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

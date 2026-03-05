@@ -1,0 +1,18 @@
+{
+  "schema_version": "v2.1.1",
+  "run_id": "123e4567-e89b-72d3-a456-426614174000",
+  "source_id": "SRC01",
+  "created_at": "2026-03-05T12:44:01.388905+00:00",
+  "blocks": [
+    {
+      "block_id": "BLK0001",
+      "construct_id": "CNSTR001",
+      "page_start": 1,
+      "page_end": 1,
+      "excerpt_raw": "CEP is a deterministic archival compiler.",
+      "excerpt_sha256": "0385591be5a59a92f6fbcec9cc095d2b36bbe7b823011850e95ac85cab8ed343",
+      "capture_method": "manual_extract",
+      "notes": "Fixture excerpt"
+    }
+  ]
+}

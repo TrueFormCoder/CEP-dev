@@ -1,0 +1,18 @@
+{
+  "schema_version": "v2.1.1",
+  "run_id": "123e4567-e89b-72d3-a456-426614174000",
+  "created_at": "2026-03-05T12:51:06.071106+00:00",
+  "sources": [
+    {
+      "source_id": "SRC01",
+      "filename": "example-thread.pdf",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bytes": 123456,
+      "page_count": 10,
+      "vault_uri": "vault://cep/2026/123e4567-e89b-72d3-a456-426614174000/sources/example-thread.pdf",
+      "drive_uri": "drive://CEP/Runs/2026/123e4567-e89b-72d3-a456-426614174000/example-thread.pdf",
+      "ingested_at": "2026-03-05T12:51:06.071156+00:00",
+      "notes": "Fixture source for CI validation"
+    }
+  ]
+}
